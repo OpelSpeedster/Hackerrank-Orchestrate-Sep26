@@ -1,0 +1,251 @@
+request_id,amount_safe_to_pay,affordability_status,recommended_payment_method,payment_plan,earliest_date_for_full_payment,spending_changes_needed,decision_explanation
+request_26,15656000,affordable_now,full_payment,2025-08-03:15656000,2025-08-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_27,5718.78,affordable_with_plan,full_payment,2026-07-05:6670,,stop:event_2412,The full payment passes the 90-day minimum-balance safety check.
+request_28,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_29,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_30,117.34,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_31,2228712.42,affordable_later,wait,2024-11-15:18164000,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_32,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_33,31035.94,affordable_later,wait,2026-03-15:118000,2026-03-15,reduce_to:event_2969:2060,"Wait until 2026-03-15, when the full payment passes the safety check."
+request_34,42493.11,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_35,21403.72,affordable_later,wait,2026-01-15:212000,2026-01-15,none,"Wait until 2026-01-15, when the full payment passes the safety check."
+request_36,538.54,affordable_later,wait,2026-09-15:3954,2026-09-15,none,"Wait until 2026-09-15, when the full payment passes the safety check."
+request_37,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_38,162.86,affordable_later,wait,2025-10-15:971.3,2025-10-15,none,"Wait until 2025-10-15, when the full payment passes the safety check."
+request_39,36904.63,affordable_later,wait,2026-06-15:208600,2026-06-15,none,"Wait until 2026-06-15, when the full payment passes the safety check."
+request_40,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_41,7981222.64,affordable_later,wait,2026-01-15:38760000,2026-01-15,none,"Wait until 2026-01-15, when the full payment passes the safety check."
+request_42,52100,affordable_now,full_payment,2026-01-05:52100,2026-01-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_43,8066547.93,affordable_later,wait,2024-11-15:43339000,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_44,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_45,2982463.69,affordable_later,wait,2026-09-15:21983000,2026-09-15,none,"Wait until 2026-09-15, when the full payment passes the safety check."
+request_46,35069.96,affordable_with_plan,partial_payment,2024-12-03:35069.96|2024-12-15:14380.04,2024-12-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_47,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_48,45700,affordable_now,full_payment,2026-07-25:45700,2026-07-25,none,The full payment passes the 90-day minimum-balance safety check.
+request_49,12092005.17,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_50,43900,affordable_now,full_payment,2025-08-06:43900,2025-08-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_51,1981515.69,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_52,18274.22,affordable_later,wait,2024-06-15:28870,2024-06-15,none,"Wait until 2024-06-15, when the full payment passes the safety check."
+request_53,470.36,affordable_with_plan,installments,2025-11-21:589.06|2025-12-19:589.06|2026-01-16:589.06,2026-01-15,none,Use supplied installment option payment_option_145; every payment stays above the minimum balance.
+request_54,1857.03,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_55,111402.7,affordable_later,not_recommended,none,2026-08-15,none,No user-approved payment plan passes the 90-day safety check.
+request_56,481.37,affordable_with_plan,partial_payment,2025-02-03:481.37|2025-02-15:400.19,2025-02-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_57,12663.87,affordable_later,wait,2026-06-15:61446,2026-06-15,none,"Wait until 2026-06-15, when the full payment passes the safety check."
+request_58,16226000,affordable_now,full_payment,2024-12-07:16226000,2024-12-07,none,The full payment passes the 90-day minimum-balance safety check.
+request_59,96688.59,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_60,112.64,affordable_later,wait,2026-02-15:199.89,2026-02-15,none,"Wait until 2026-02-15, when the full payment passes the safety check."
+request_61,29062,affordable_with_plan,installments,2024-03-17:10074.83|2024-04-17:10074.83|2024-05-18:10074.83,2024-03-03,none,Use supplied installment option payment_option_169; every payment stays above the minimum balance.
+request_62,404.23,affordable_now,full_payment,2025-08-05:404.23,2025-08-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_63,34185.56,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_64,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_65,5554.76,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_66,22200,affordable_now,full_payment,2026-04-03:22200,2026-04-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_67,262.36,affordable_later,wait,2024-11-15:2094,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_68,1409.94,affordable_with_plan,installments,2025-02-14:725.09|2025-03-14:725.09|2025-04-11:725.09,2025-03-15,stop:event_6330|reduce_to:event_6331:24.8,Use supplied installment option payment_option_187; every payment stays above the minimum balance.
+request_69,476.54,affordable_with_plan,full_payment,2026-01-04:529.1,2026-03-15,reduce_to:event_6407:16.4|stop:event_6405,The full payment passes the 90-day minimum-balance safety check.
+request_70,49190.01,affordable_later,wait,2025-02-15:243900,2025-02-15,none,"Wait until 2025-02-15, when the full payment passes the safety check."
+request_71,108175.34,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_72,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_73,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_74,5010,affordable_now,full_payment,2025-08-04:5010,2025-08-04,none,The full payment passes the 90-day minimum-balance safety check.
+request_75,8689.22,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_76,625.36,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_77,59216.29,affordable_later,not_recommended,none,2025-11-15,none,No user-approved payment plan passes the 90-day safety check.
+request_78,42755.99,affordable_later,not_recommended,none,2025-11-15,none,No user-approved payment plan passes the 90-day safety check.
+request_79,213.39,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_80,110514.36,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_81,2036.51,affordable_with_plan,full_payment,2026-07-03:2076,2026-08-15,reduce_to:event_7636:37.5,The full payment passes the 90-day minimum-balance safety check.
+request_82,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_83,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_84,20106.13,affordable_later,wait,2026-06-15:95400,2026-06-15,reduce_to:event_7940:1730,"Wait until 2026-06-15, when the full payment passes the safety check."
+request_85,303021.7,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_86,46300,affordable_now,full_payment,2025-08-03:46300,2025-08-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_87,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_88,10497.62,affordable_with_plan,installments,2024-06-14:9045.23|2024-07-15:9045.23|2024-08-15:9045.23,2024-07-15,none,Use supplied installment option payment_option_245; every payment stays above the minimum balance.
+request_89,9135327.52,affordable_later,not_recommended,none,2026-01-15,none,No user-approved payment plan passes the 90-day safety check.
+request_90,2560,affordable_now,full_payment,2026-07-06:2560,2026-07-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_91,245.37,affordable_later,wait,2024-11-15:1927.2,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_92,34034,affordable_now,full_payment,2025-02-05:34034,2025-02-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_93,1729.2,affordable_now,full_payment,2026-04-07:1729.2,2026-04-07,none,The full payment passes the 90-day minimum-balance safety check.
+request_94,20.99,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_95,31837.83,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_96,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_97,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_98,5677.91,affordable_later,wait,2025-10-15:27148,2025-10-15,reduce_to:event_9079:620.4|stop:event_9076|stop:event_9077,"Wait until 2025-10-15, when the full payment passes the safety check."
+request_99,16592,affordable_with_plan,full_payment,2026-07-04:18062,2026-07-15,reduce_to:event_9232:1065.9|stop:event_9188,The full payment passes the 90-day minimum-balance safety check.
+request_100,25256.94,affordable_with_plan,installments,2024-06-13:12866.19|2024-07-14:12866.19|2024-08-14:12866.19,2024-07-15,stop:event_9267,Use supplied installment option payment_option_281; every payment stays above the minimum balance.
+request_101,143500,affordable_now,full_payment,2025-11-03:143500,2025-11-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_102,1342.77,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_103,1095.3,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_104,17204,affordable_now,full_payment,2025-02-04:17204,2025-02-04,none,The full payment passes the 90-day minimum-balance safety check.
+request_105,49790.7,affordable_with_plan,full_payment,2026-06-08:53500,2026-06-15,reduce_to:event_9721:1720|reduce_to:event_9720:1632,The full payment passes the 90-day minimum-balance safety check.
+request_106,438.72,affordable_later,wait,2025-02-15:2207.7,2025-02-15,none,"Wait until 2025-02-15, when the full payment passes the safety check."
+request_107,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_108,1596.54,affordable_later,not_recommended,none,2026-09-15,none,No user-approved payment plan passes the 90-day safety check.
+request_109,434.36,affordable_later,not_recommended,none,2024-05-15,none,No user-approved payment plan passes the 90-day safety check.
+request_110,16827.66,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_111,14470844.86,affordable_with_plan,full_payment,2026-04-03:16625000,,reduce_to:event_10302:335350|stop:event_10264,The full payment passes the 90-day minimum-balance safety check.
+request_112,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_113,19049.46,affordable_later,wait,2026-10-15:36500,2026-10-15,none,"Wait until 2026-10-15, when the full payment passes the safety check."
+request_114,51136.55,affordable_later,not_recommended,none,2026-02-15,none,No user-approved payment plan passes the 90-day safety check.
+request_115,14426.44,affordable_later,wait,2024-11-15:80500,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_116,1472.4,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_117,853.68,affordable_with_plan,full_payment,2026-07-05:880,2026-07-15,reduce_to:event_10878:20.5|stop:event_10833,The full payment passes the 90-day minimum-balance safety check.
+request_118,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_119,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_120,7714000,affordable_now,full_payment,2026-04-06:7714000,2026-04-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_121,633.6,affordable_now,full_payment,2024-03-03:633.6,2024-03-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_122,20558000,affordable_with_plan,installments,2025-08-05:7126773.33|2025-09-02:7126773.33|2025-09-30:7126773.33,2025-08-05,none,Use supplied installment option payment_option_347; every payment stays above the minimum balance.
+request_123,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_124,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_125,5515.2,affordable_later,not_recommended,none,2025-11-15,none,No user-approved payment plan passes the 90-day safety check.
+request_126,9699.05,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_127,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_128,25168,affordable_now,full_payment,2025-02-07:25168,2025-02-07,none,The full payment passes the 90-day minimum-balance safety check.
+request_129,105.58,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_130,358.14,affordable_later,wait,2025-02-15:1978.8,2025-02-15,none,"Wait until 2025-02-15, when the full payment passes the safety check."
+request_131,1327.19,affordable_with_plan,installments,2025-05-06:643.14|2025-06-03:643.14|2025-07-01:643.14,2025-06-15,none,Use supplied installment option payment_option_372; every payment stays above the minimum balance.
+request_132,236.85,affordable_later,wait,2026-02-15:379.86,2026-02-15,reduce_to:event_12142:26,"Wait until 2026-02-15, when the full payment passes the safety check."
+request_133,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_134,3847253.69,affordable_later,wait,2025-10-15:21831000,2025-10-15,none,"Wait until 2025-10-15, when the full payment passes the safety check."
+request_135,265.65,affordable_with_plan,full_payment,2026-07-06:304.8,2026-07-15,reduce_to:event_12458:17.5|stop:event_12413,The full payment passes the 90-day minimum-balance safety check.
+request_136,487.29,affordable_later,not_recommended,none,2024-06-15,none,No user-approved payment plan passes the 90-day safety check.
+request_137,13252.13,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_138,713.98,affordable_with_plan,partial_payment,2026-04-07:713.98|2026-04-15:542.96,2026-04-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_139,1310.38,affordable_later,not_recommended,none,2024-11-15,none,No user-approved payment plan passes the 90-day safety check.
+request_140,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_141,16898.56,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_142,529.18,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_143,2412.14,affordable_later,wait,2025-07-15:12584,2025-07-15,none,"Wait until 2025-07-15, when the full payment passes the safety check."
+request_144,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_145,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_146,10176.73,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_147,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_148,7003.36,affordable_with_plan,installments,2024-06-14:7710.56|2024-07-15:7710.56|2024-08-15:7710.56,2024-07-15,reduce_to:event_13661:531.3|reduce_to:event_13594:576.4,Use supplied installment option payment_option_421; every payment stays above the minimum balance.
+request_149,21606,affordable_later,not_recommended,none,2026-01-15,none,No user-approved payment plan passes the 90-day safety check.
+request_150,240.83,affordable_later,not_recommended,none,2026-03-15,none,No user-approved payment plan passes the 90-day safety check.
+request_151,26999000,affordable_now,full_payment,2024-09-03:26999000,2024-09-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_152,10896.84,affordable_later,not_recommended,none,2025-04-15,none,No user-approved payment plan passes the 90-day safety check.
+request_153,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_154,1625.8,affordable_with_plan,installments,2024-12-04:563.61|2025-01-04:563.61|2025-02-04:563.61,2024-12-04,none,Use supplied installment option payment_option_438; every payment stays above the minimum balance.
+request_155,11037.58,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_156,8311.95,affordable_later,wait,2026-06-15:43076,2026-06-15,none,"Wait until 2026-06-15, when the full payment passes the safety check."
+request_157,4624620.39,affordable_later,wait,2024-05-15:23503000,2024-05-15,none,"Wait until 2024-05-15, when the full payment passes the safety check."
+request_158,200300.76,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_159,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_160,560.31,affordable_with_plan,installments,2024-06-13:432.05|2024-07-14:432.05|2024-08-14:432.05,2024-07-15,none,Use supplied installment option payment_option_454; every payment stays above the minimum balance.
+request_161,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_162,1024231.87,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_163,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_164,27018000,affordable_with_plan,installments,2025-02-11:9366240|2025-03-11:9366240|2025-04-08:9366240,2025-02-04,none,Use supplied installment option payment_option_465; every payment stays above the minimum balance.
+request_165,56877.37,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_166,2743.78,affordable_with_plan,installments,2024-12-03:1007.97|2025-01-03:1007.97|2025-02-03:1007.97,2024-12-03,reduce_to:event_15245:47|reduce_to:event_15209:45.2,Use supplied installment option payment_option_471; every payment stays above the minimum balance.
+request_167,43802,affordable_now,full_payment,2025-05-05:43802,2025-05-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_168,28527.57,affordable_with_plan,partial_payment,2026-01-07:28527.57|2026-03-15:20852.43,2026-03-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_169,41976,affordable_now,full_payment,2024-03-04:41976,2024-03-04,none,The full payment passes the 90-day minimum-balance safety check.
+request_170,29166065.87,affordable_with_plan,installments,2025-08-06:12804480|2025-09-03:12804480|2025-10-01:12804480,2025-09-15,reduce_to:event_15670:779950|stop:event_15605,Use supplied installment option payment_option_483; every payment stays above the minimum balance.
+request_171,23.01,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_172,8424.68,affordable_with_plan,partial_payment,2024-06-05:8424.68|2024-07-15:1775.32,2024-07-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_173,53179.37,affordable_with_plan,installments,2025-11-21:39173.33|2025-12-19:39173.33|2026-01-16:39173.33,2026-01-15,reduce_to:event_15946:2105,Use supplied installment option payment_option_491; every payment stays above the minimum balance.
+request_174,974.76,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_175,2346.3,affordable_now,full_payment,2024-09-06:2346.3,2024-09-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_176,343.03,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_177,1017.6,affordable_now,full_payment,2026-01-05:1017.6,2026-01-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_178,2331.91,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_179,4736015.72,affordable_later,wait,2025-07-15:41648000,2025-07-15,none,"Wait until 2025-07-15, when the full payment passes the safety check."
+request_180,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_181,147,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_182,65714,affordable_now,full_payment,2025-08-05:65714,2025-08-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_183,22535615.19,affordable_with_plan,installments,2026-04-10:9313546.67|2026-05-10:9313546.67|2026-06-09:9313546.67,2026-05-15,reduce_to:event_16815:365560|stop:event_16814,Use supplied installment option payment_option_521; every payment stays above the minimum balance.
+request_184,5290.53,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_185,292.95,affordable_later,wait,2026-01-15:1257.3,2026-01-15,reduce_to:event_17120:33.5,"Wait until 2026-01-15, when the full payment passes the safety check."
+request_186,3405.79,affordable_later,wait,2026-03-15:26554,2026-03-15,reduce_to:event_17239:623.7,"Wait until 2026-03-15, when the full payment passes the safety check."
+request_187,36573.65,affordable_later,wait,2024-11-15:187500,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_188,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_189,488.4,affordable_now,full_payment,2026-07-04:488.4,2026-07-04,none,The full payment passes the 90-day minimum-balance safety check.
+request_190,396.42,affordable_later,wait,2025-02-15:2557.5,2025-02-15,reduce_to:event_17577:37.5,"Wait until 2025-02-15, when the full payment passes the safety check."
+request_191,664.4,affordable_now,full_payment,2025-05-03:664.4,2025-05-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_192,13.36,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_193,15.61,affordable_with_plan,installments,2024-03-21:420.23|2024-04-21:420.23|2024-05-22:420.23,2024-05-15,none,Use supplied installment option payment_option_549; every payment stays above the minimum balance.
+request_194,37833.18,affordable_later,wait,2025-10-15:132800,2025-10-15,none,"Wait until 2025-10-15, when the full payment passes the safety check."
+request_195,959.11,affordable_with_plan,installments,2026-01-09:405.74|2026-02-08:405.74|2026-03-10:405.74,2026-02-15,reduce_to:event_17957:13|reduce_to:event_17955:12,Use supplied installment option payment_option_555; every payment stays above the minimum balance.
+request_196,293.86,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_197,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_198,185800,affordable_now,full_payment,2026-07-07:185800,2026-07-07,none,The full payment passes the 90-day minimum-balance safety check.
+request_199,22244764.67,affordable_with_plan,installments,2024-09-07:8206986.67|2024-10-08:8206986.67|2024-11-08:8206986.67,2024-09-04,reduce_to:event_18319:753350|stop:event_18316,Use supplied installment option payment_option_569; every payment stays above the minimum balance.
+request_200,21717000,affordable_now,full_payment,2025-02-06:21717000,2025-02-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_201,21636639.02,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_202,123900,affordable_now,full_payment,2024-12-05:123900,2024-12-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_203,661.71,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_204,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_205,10621000,affordable_now,full_payment,2024-03-06:10621000,2024-03-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_206,1404.7,affordable_with_plan,installments,2025-08-03:486.96|2025-08-31:486.96|2025-09-28:486.96,2025-08-03,reduce_to:event_18965:19.5,Use supplied installment option payment_option_592; every payment stays above the minimum balance.
+request_207,4206.07,affordable_later,wait,2026-07-15:11830,2026-07-15,none,"Wait until 2026-07-15, when the full payment passes the safety check."
+request_208,2873480.96,affordable_later,wait,2024-06-15:4413000,2024-06-15,none,"Wait until 2024-06-15, when the full payment passes the safety check."
+request_209,1448.4,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_210,813.24,affordable_with_plan,partial_payment,2026-04-06:813.24|2026-04-15:546.78,2026-04-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_211,235.36,affordable_later,wait,2024-11-15:1788.6,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_212,4971665.37,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_213,2042.92,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_214,50418.28,affordable_with_plan,partial_payment,2024-12-04:50418.28|2024-12-15:19331.72,2024-12-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_215,24018.36,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_216,461.93,affordable_later,wait,2026-09-15:3332.4,2026-09-15,none,"Wait until 2026-09-15, when the full payment passes the safety check."
+request_217,18845.36,affordable_with_plan,installments,2024-03-19:12889.07|2024-04-19:12889.07|2024-05-20:12889.07,2024-05-15,reduce_to:event_20045:663.3|reduce_to:event_19979:561.44,Use supplied installment option payment_option_622; every payment stays above the minimum balance.
+request_218,22833462.92,affordable_with_plan,installments,2025-08-07:21195893.33|2025-09-04:21195893.33|2025-10-02:21195893.33,2025-09-15,none,Use supplied installment option payment_option_625; every payment stays above the minimum balance.
+request_219,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_220,39.78,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_221,109800,affordable_now,full_payment,2025-11-03:109800,2025-11-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_222,28184.76,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_223,269.05,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_224,9239941.13,affordable_with_plan,partial_payment,2025-02-04:9239941.13|2025-02-15:1087058.87,2025-02-15,reduce_to:event_20613:501600,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_225,9339942.52,affordable_with_plan,installments,2026-07-20:7647120|2026-08-19:7647120|2026-09-18:7647120,2026-09-15,stop:event_20650|reduce_to:event_20649:314450,Use supplied installment option payment_option_647; every payment stays above the minimum balance.
+request_226,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_227,6140.78,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_228,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_229,422.99,affordable_with_plan,installments,2024-03-18:529.29|2024-04-18:529.29|2024-05-19:529.29,2024-05-15,stop:event_21032|stop:event_21031,Use supplied installment option payment_option_659; every payment stays above the minimum balance.
+request_230,3537.6,affordable_now,full_payment,2025-08-06:3537.6,2025-08-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_231,29787.66,affordable_with_plan,installments,2026-01-06:12378.08|2026-02-05:12378.08|2026-03-07:12378.08,2026-02-15,reduce_to:event_21305:845.9,Use supplied installment option payment_option_666; every payment stays above the minimum balance.
+request_232,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_233,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_234,172.71,affordable_later,wait,2026-09-15:1213.3,2026-09-15,none,"Wait until 2026-09-15, when the full payment passes the safety check."
+request_235,967.2,affordable_now,full_payment,2024-09-06:967.2,2024-09-06,none,The full payment passes the 90-day minimum-balance safety check.
+request_236,5537272.71,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_237,19097568.97,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_238,663.6,affordable_with_plan,installments,2024-12-07:230.05|2025-01-07:230.05|2025-02-07:230.05,2024-12-07,none,Use supplied installment option payment_option_686; every payment stays above the minimum balance.
+request_239,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_240,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_241,21052000,affordable_with_plan,installments,2024-03-17:7298026.67|2024-04-17:7298026.67|2024-05-18:7298026.67,2024-03-03,reduce_to:event_22186:501600,Use supplied installment option payment_option_695; every payment stays above the minimum balance.
+request_242,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_243,17468,affordable_now,full_payment,2026-07-07:17468,2026-07-07,none,The full payment passes the 90-day minimum-balance safety check.
+request_244,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_245,20720.19,affordable_later,wait,2026-01-15:128500,2026-01-15,reduce_to:event_22583:2075,"Wait until 2026-01-15, when the full payment passes the safety check."
+request_246,64086,affordable_with_plan,installments,2026-04-03:22216.48|2026-05-03:22216.48|2026-06-02:22216.48,2026-04-03,reduce_to:event_22650:716.1,Use supplied installment option payment_option_710; every payment stays above the minimum balance.
+request_247,1059.3,affordable_now,full_payment,2024-09-05:1059.3,2024-09-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_248,921.41,affordable_with_plan,partial_payment,2025-02-07:921.41|2025-04-15:1044.19,2025-04-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_249,126.89,affordable_later,wait,2026-03-15:643.2,2026-03-15,none,"Wait until 2026-03-15, when the full payment passes the safety check."
+request_250,15007.81,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_251,16.87,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_252,3568184.1,affordable_later,wait,2026-09-15:28082000,2026-09-15,none,"Wait until 2026-09-15, when the full payment passes the safety check."
+request_253,1343.33,affordable_with_plan,installments,2024-03-21:984.6|2024-04-21:984.6|2024-05-22:984.6,2024-05-15,reduce_to:event_23305:45.5,Use supplied installment option payment_option_729; every payment stays above the minimum balance.
+request_254,596.58,affordable_later,wait,2025-10-15:3535.2,2025-10-15,none,"Wait until 2025-10-15, when the full payment passes the safety check."
+request_255,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_256,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_257,313.06,affordable_later,wait,2026-01-15:1352.4,2026-01-15,reduce_to:event_23673:43,"Wait until 2026-01-15, when the full payment passes the safety check."
+request_258,1094.2,affordable_with_plan,full_payment,2026-01-07:1113.6,,stop:event_23715,The full payment passes the 90-day minimum-balance safety check.
+request_259,246.01,affordable_later,wait,2024-11-15:935,2024-11-15,none,"Wait until 2024-11-15, when the full payment passes the safety check."
+request_260,5894584.82,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_261,1830.4,affordable_now,full_payment,2026-07-03:1830.4,2026-07-03,none,The full payment passes the 90-day minimum-balance safety check.
+request_262,9236000,affordable_now,full_payment,2024-12-05:9236000,2024-12-05,none,The full payment passes the 90-day minimum-balance safety check.
+request_263,5153.93,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_264,22057.72,affordable_later,wait,2026-06-15:111300,2026-06-15,none,"Wait until 2026-06-15, when the full payment passes the safety check."
+request_265,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_266,751.36,affordable_later,not_recommended,none,2025-10-15,none,No user-approved payment plan passes the 90-day safety check.
+request_267,1602.93,affordable_later,not_recommended,none,2026-03-15,none,No user-approved payment plan passes the 90-day safety check.
+request_268,1032.18,affordable_with_plan,installments,2024-06-14:841.22|2024-07-15:841.22|2024-08-15:841.22,2024-07-15,none,Use supplied installment option payment_option_770; every payment stays above the minimum balance.
+request_269,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_270,75.26,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_271,0,not_affordable,not_recommended,none,,none,No user-approved payment plan passes the 90-day safety check.
+request_272,5316520.26,affordable_with_plan,installments,2025-02-12:4709466.67|2025-03-12:4709466.67|2025-04-09:4709466.67,2025-03-15,none,Use supplied installment option payment_option_780; every payment stays above the minimum balance.
+request_273,9200093.26,affordable_with_plan,partial_payment,2026-04-07:9200093.26|2026-04-15:6660906.74,2026-04-15,none,Pay the safe amount today and the remaining balance on the earliest safe date.
+request_274,2038.88,affordable_later,not_recommended,none,2025-02-15,none,No user-approved payment plan passes the 90-day safety check.
+request_275,15884000,affordable_now,full_payment,2025-05-06:15884000,2025-05-06,none,The full payment passes the 90-day minimum-balance safety check.
