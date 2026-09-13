@@ -1,0 +1,22 @@
+# Structured data and configuration
+pandas>=2.2,<3.0
+python-dotenv>=1.0,<2.0
+
+# Frontier LLM providers (credentials come from environment variables)
+openai>=1.40,<2.0
+anthropic>=0.34,<1.0
+groq>=0.20,<1.0
+
+# Runtime schemas and local response validation
+pydantic>=2.7,<3.0
+jsonschema>=4.23,<5.0
+
+# Image loading/pre-processing for evidence extraction
+Pillow>=10.0,<12.0
+
+# Local semantic retrieval (falls back to deterministic lexical retrieval when unavailable)
+numpy>=1.26,<3.0
+faiss-cpu>=1.8,<2.0
+
+# Optional reliability helper for API retries
+tenacity>=8.2,<10.0
