@@ -138,15 +138,16 @@ class FinancialTools:
             "images": images,
         }
 
-    def search_faiss(self, request: Request, context: dict[str, Any]) -> list[dict]:
+    async def search_faiss(self, request: Request, context: dict[str, Any]) -> list[dict]:
         event_ids = [str(event["event_id"]) for event in context.get("events", [])]
         query = f"{request.request_text} {request.request_type} {' '.join(event_ids)}"
-        return self.index.search(
+        return await self.index.search_async(
             query=query,
             user_id=request.user_id,
             request_id=request.request_id,
             event_ids=event_ids,
             limit=8,
+            embedder=self.modal,
         )
 
     async def extract_document(self, context: dict[str, Any]) -> list[dict[str, Any]]:

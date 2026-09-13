@@ -73,7 +73,11 @@ class ElasticRouter:
                 )
                 if isinstance(guard_result, Exception):
                     errors.append("guard_exception")
-                    guard_result = None
+                    guard_result = {
+                        "status": "failed",
+                        "flagged": False,
+                        "requested_tools": [],
+                    }
                 if isinstance(extracted, Exception):
                     errors.append("document_exception")
                     extracted = []
@@ -84,9 +88,7 @@ class ElasticRouter:
                     requested_tools = []
                 if requested_tools or context.get("messages") or context.get("request", {}).get("request_text"):
                     trace.append("search_faiss")
-                    context["semantic_evidence"] = await asyncio.to_thread(
-                        self.tools.search_faiss, request, context
-                    )
+                    context["semantic_evidence"] = await self.tools.search_faiss(request, context)
                 else:
                     context["semantic_evidence"] = []
 
@@ -132,17 +134,63 @@ class ElasticRouter:
                         "decision_explanation": "The request could not be evaluated safely.",
                     }
             latency_ms = (time.perf_counter() - started) * 1000
-            guard_flagged = bool(guard_result and guard_result.get("flagged"))
-            guard_status = "flagged" if guard_flagged else ("completed" if guard_result else "unavailable")
+            guard_status = (
+                str(guard_result.get("status", "failed"))
+                if guard_result and self.tools.gateway.orchestrator_enabled
+                else "disabled"
+            )
+            guard_flagged = guard_status == "completed" and bool(
+                guard_result and guard_result.get("flagged")
+            )
+            image_ids = {
+                str(item.get("image_id"))
+                for item in context.get("images", [])
+                if item.get("image_id")
+            }
+            image_statuses = [
+                self.tools.gateway.extraction_status.get(image_id, "skipped")
+                for image_id in image_ids
+            ]
+            if not image_statuses:
+                qwen_status = "skipped"
+            elif not self.tools.gateway.extraction_enabled:
+                qwen_status = "disabled"
+            elif "completed" in image_statuses:
+                qwen_status = "completed"
+            elif "timeout" in image_statuses:
+                qwen_status = "timeout"
+            elif "invalid_response" in image_statuses:
+                qwen_status = "invalid_response"
+            else:
+                qwen_status = "failed"
+            for status, prefix in ((guard_status, "guard"), (qwen_status, "qwen")):
+                if status in {"failed", "timeout", "invalid_response"}:
+                    errors.append(f"{prefix}_{status}")
+            attempted_tools = len(trace)
+            if not self.tools.gateway.orchestrator_enabled:
+                attempted_tools -= 1
+            if not self.tools.gateway.extraction_enabled or not image_ids:
+                attempted_tools -= 1
+            successful_tools = max(0, attempted_tools - sum(
+                error.startswith(("guard_", "qwen_", "document_")) for error in errors
+            ))
+            model_calls = (1 if guard_status != "disabled" else 0) + sum(
+                status not in {"disabled", "missing_file", "skipped"}
+                for status in image_statuses
+            )
             self.metrics.record_request(
                 RequestMetric(
                     request_id=request.request_id,
                     latency_ms=latency_ms,
                     valid=not fallback_used,
                     fallback_used=fallback_used,
-                    tool_calls=len(trace),
+                    planned_steps=len(trace),
+                    attempted_tools=attempted_tools,
+                    successful_tools=successful_tools,
+                    model_calls=model_calls,
                     guard_flagged=guard_flagged,
-                    guard_status=guard_status,
+                    guard_status=("flagged" if guard_flagged else guard_status),
+                    qwen_status=qwen_status,
                     errors=errors[:8],
                 )
             )

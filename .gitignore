@@ -15,20 +15,4 @@ artifacts/
 log.txt
 output.csv
 code.zip
-# Secrets and local configuration
-.env
-.env.*
-!.env.examples
-
-# Runtime and Python artifacts
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.mypy_cache/
-.venv/
-artifacts/
-
-# Challenge transcript and generated submission artifacts
-log.txt
-output.csv
-code.zip
+benchmarks/results/

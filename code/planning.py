@@ -3,10 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
+from itertools import combinations
 from typing import Optional
 
-from forecasting import FinancialForecaster
-from models import Dataset, PaymentOption, Profile, Request, amount_text
+from forecasting import FinancialForecaster, convert_to_home, recurring_stream_key
+from models import Dataset, Event, PaymentOption, Profile, Request, amount_text
 
 
 @dataclass(frozen=True)
@@ -15,6 +16,7 @@ class SpendingChange:
     action: str
     category: str
     new_amount: Optional[Decimal] = None
+    stream_key: str = ""
 
     @property
     def output(self) -> str:
@@ -56,45 +58,75 @@ def _months(option: PaymentOption) -> float:
 
 
 def _changes(dataset: Dataset, profile: Profile, request: Request) -> list[SpendingChange]:
+    """Build actions from the latest eligible event in every recurring stream."""
+    request_date = date.fromisoformat(request.request_date)
+    latest_by_stream: dict[str, Event] = {}
+    for event in dataset.events_by_user.get(request.user_id, []):
+        event_date = event.settlement_date or event.event_date
+        if not event_date or date.fromisoformat(event_date) >= request_date:
+            continue
+        if event.status != "settled" or event.amount is None:
+            continue
+        if not event.is_recurring_candidate or event.category in profile.protected_categories:
+            continue
+        stream_key = recurring_stream_key(event)
+        current = latest_by_stream.get(stream_key)
+        if current is None or date.fromisoformat(event_date) > date.fromisoformat(current.settlement_date or current.event_date):
+            latest_by_stream[stream_key] = event
+
     candidates: list[SpendingChange] = []
-    seen_categories: set[str] = set()
-    for event in reversed(dataset.events_by_user.get(request.user_id, [])):
-        if event.event_date >= request.request_date or event.status != "settled" or event.amount is None:
-            continue
-        if event.category in seen_categories or event.category in profile.protected_categories:
-            continue
-        if event.flexibility in {"stoppable", "reducible_or_stoppable"} and event.category in profile.stop_categories:
-            candidates.append(SpendingChange(event.event_id, "stop", event.category))
-            seen_categories.add(event.category)
-        elif event.flexibility in {"reducible", "reducible_or_stoppable"} and event.category in profile.reduce_categories:
-            if event.minimum_allowed_amount is not None and event.minimum_allowed_amount < event.amount:
+    for stream_key, event in sorted(
+        latest_by_stream.items(),
+        key=lambda item: (item[1].settlement_date or item[1].event_date, item[0]),
+        reverse=True,
+    ):
+        event_date = event.settlement_date or event.event_date
+        flexible = event.flexibility
+        if flexible in {"stoppable", "reducible_or_stoppable"} and event.category in profile.stop_categories:
+            candidates.append(
+                SpendingChange(event.event_id, "stop", event.category, stream_key=stream_key)
+            )
+        if flexible in {"reducible", "reducible_or_stoppable"} and event.category in profile.reduce_categories:
+            if event.minimum_allowed_amount is None or event.minimum_allowed_amount >= event.amount:
+                continue
+            new_amount = convert_to_home(
+                dataset,
+                event.minimum_allowed_amount,
+                event.currency,
+                profile.home_currency,
+                event_date,
+            )
+            if new_amount is not None:
                 candidates.append(
                     SpendingChange(
                         event.event_id,
                         "reduce",
                         event.category,
-                        event.minimum_allowed_amount,
+                        new_amount,
+                        stream_key,
                     )
                 )
-                seen_categories.add(event.category)
-        if len(candidates) >= 3:
-            break
     return candidates
 
 
-def _candidate_changes(changes: list[SpendingChange], limit: int = 3) -> list[list[SpendingChange]]:
+def _candidate_changes(changes: list[SpendingChange]) -> list[list[SpendingChange]]:
     output: list[list[SpendingChange]] = [[]]
-    for change in changes[:limit]:
-        output.append([change])
-    # A compact pair search covers the common cases without combinatorial growth.
-    for index, first in enumerate(changes[:limit]):
-        for second in changes[index + 1 : limit]:
-            output.append([first, second])
+    for size in (1, 2, 3):
+        for combination in combinations(changes, size):
+            stream_keys = [change.stream_key or change.event_id for change in combination]
+            if len(set(stream_keys)) == len(stream_keys):
+                output.append(list(combination))
     return output
 
 
-def _suppressed(changes: list[SpendingChange]) -> set[str]:
-    return {change.category for change in changes}
+def _change_map(changes: list[SpendingChange]) -> dict[str, Optional[Decimal]]:
+    output: dict[str, Optional[Decimal]] = {}
+    for change in changes:
+        replacement = None if change.action == "stop" else change.new_amount
+        output[change.event_id] = replacement
+        if change.stream_key:
+            output[change.stream_key] = replacement
+    return output
 
 
 def _candidate_key(candidate: Candidate) -> tuple:
@@ -112,17 +144,22 @@ def _full_candidate(
     forecaster: FinancialForecaster,
     request: Request,
     changes: list[SpendingChange],
+    baseline_earliest: Optional[str],
 ) -> Optional[Candidate]:
     if not _accepted(forecaster.profile, "full_payment"):
         return None
-    result = forecaster.simulate([(request.request_date, request.requested_amount)], _suppressed(changes))
+    change_map = _change_map(changes)
+    result = forecaster.simulate(
+        [(request.request_date, request.requested_amount)],
+        change_map,
+    )
     if not result.safe:
         return None
     return Candidate(
         method="full_payment",
-        status="affordable_now",
+        status="affordable_now" if not changes else "affordable_with_plan",
         payments=[(request.request_date, request.requested_amount)],
-        earliest_full=request.request_date,
+        earliest_full=request.request_date if not changes else baseline_earliest,
         changes=changes,
         total_cost=request.requested_amount,
         explanation="The full payment passes the 90-day minimum-balance safety check.",
@@ -140,12 +177,17 @@ def _partial_candidate(
         return None
     if safe_today <= 0 or safe_today >= request.requested_amount:
         return None
-    earliest = forecaster.earliest_full_payment_date(request.requested_amount, _suppressed(changes))
+    change_map = _change_map(changes)
+    earliest = forecaster.earliest_full_payment_date(
+        request.requested_amount,
+        change_map,
+        request.desired_completion_date,
+    )
     if earliest is None or earliest > request.desired_completion_date:
         return None
     remainder = request.requested_amount - safe_today
     payments = [(request.request_date, safe_today), (earliest, remainder)]
-    if not forecaster.simulate(payments, _suppressed(changes)).safe:
+    if not forecaster.simulate(payments, change_map).safe:
         return None
     return Candidate(
         method="partial_payment",
@@ -177,14 +219,18 @@ def _installment_candidates(
         schedule = option.schedule()
         if not schedule or schedule[0][0] < request.request_date or schedule[-1][0] > request.desired_completion_date:
             continue
-        if not forecaster.simulate(schedule, _suppressed(changes)).safe:
+        change_map = _change_map(changes)
+        if not forecaster.simulate(schedule, change_map).safe:
             continue
         output.append(
             Candidate(
                 method="installments",
                 status="affordable_with_plan",
                 payments=schedule,
-                earliest_full=forecaster.earliest_full_payment_date(request.requested_amount),
+                earliest_full=forecaster.earliest_full_payment_date(
+                    request.requested_amount,
+                    change_map,
+                ),
                 changes=changes,
                 total_cost=option.total_payable_amount,
                 option_id=option.payment_option_id,
@@ -202,21 +248,27 @@ def _wait_candidate(
     changes: list[SpendingChange],
     baseline_earliest: Optional[str],
 ) -> Optional[Candidate]:
-    if not _accepted(profile, "full_payment") or baseline_earliest is None:
+    if not _accepted(profile, "full_payment"):
         return None
-    if baseline_earliest > request.desired_completion_date:
+    change_map = _change_map(changes)
+    earliest = forecaster.earliest_full_payment_date(
+        request.requested_amount,
+        change_map,
+        request.desired_completion_date,
+    )
+    if earliest is None or earliest > request.desired_completion_date:
         return None
-    payments = [(baseline_earliest, request.requested_amount)]
-    if not forecaster.simulate(payments, _suppressed(changes)).safe:
+    payments = [(earliest, request.requested_amount)]
+    if not forecaster.simulate(payments, change_map).safe:
         return None
     return Candidate(
         method="wait",
         status="affordable_later",
         payments=payments,
-        earliest_full=baseline_earliest,
+        earliest_full=earliest,
         changes=changes,
         total_cost=request.requested_amount,
-        explanation=f"Wait until {baseline_earliest}, when the full payment passes the safety check.",
+        explanation=f"Wait until {earliest}, when the full payment passes the safety check.",
         _deadline=request.desired_completion_date,
     )
 
@@ -230,7 +282,7 @@ def plan_request(dataset: Dataset, request: Request) -> tuple[dict, dict]:
 
     candidates: list[Candidate] = []
     for changes in _candidate_changes(available_changes):
-        full = _full_candidate(forecaster, request, changes)
+        full = _full_candidate(forecaster, request, changes, baseline_earliest)
         if full:
             candidates.append(full)
         partial = _partial_candidate(forecaster, request, safe_today, changes)

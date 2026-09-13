@@ -6,6 +6,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Iterable
 
+from forecasting import FinancialForecaster, convert_to_home
 from models import Dataset, Request, amount_text, decimal
 
 OUTPUT_COLUMNS = [
@@ -58,8 +59,18 @@ def validate_row(dataset: Dataset, request: Request, row: dict[str, str]) -> lis
     except Exception:
         errors.append("invalid_payment_plan_format")
         plan = []
+    request_date = date.fromisoformat(request.request_date)
+    forecast_end = request_date.fromordinal(request_date.toordinal() + 90)
+    for payment_date, payment_amount in plan:
+        parsed_date = date.fromisoformat(payment_date)
+        if parsed_date < request_date or parsed_date > forecast_end:
+            errors.append("payment_date_outside_90_day_forecast")
+        if payment_amount is None or payment_amount < 0:
+            errors.append("negative_or_invalid_payment_amount")
     if any(plan[index][0] > plan[index + 1][0] for index in range(len(plan) - 1)):
         errors.append("payment_plan_not_chronological")
+    if plan and plan[-1][0] > request.desired_completion_date:
+        errors.append("payment_plan_after_completion_deadline")
     earliest = row.get("earliest_date_for_full_payment", "")
     if earliest:
         try:
@@ -78,6 +89,8 @@ def validate_row(dataset: Dataset, request: Request, row: dict[str, str]) -> lis
         else:
             if plan[0][0] != request.request_date or plan[0][1] != safe:
                 errors.append("partial_payment_first_payment_mismatch")
+            if plan[1][0] > request.desired_completion_date:
+                errors.append("partial_payment_after_completion_deadline")
             if plan[0][1] + plan[1][1] != request.requested_amount:
                 errors.append("partial_payment_sum_mismatch")
             if not request.allows_partial_payment:
@@ -93,7 +106,7 @@ def validate_row(dataset: Dataset, request: Request, row: dict[str, str]) -> lis
         if not matching:
             errors.append("installment_plan_not_supplied")
     elif method == "wait":
-        if not plan or plan[-1][1] != request.requested_amount:
+        if len(plan) != 1 or plan[-1][1] != request.requested_amount:
             errors.append("wait_plan_must_pay_full_amount")
     elif method == "not_recommended" and plan:
         errors.append("not_recommended_must_have_no_plan")
@@ -104,6 +117,7 @@ def validate_row(dataset: Dataset, request: Request, row: dict[str, str]) -> lis
         errors.append("wait_requires_full_payment_preference")
 
     event_by_id = {event.event_id: event for event in dataset.events_by_user.get(request.user_id, [])}
+    change_map = {}
     changes = row.get("spending_changes_needed", "none")
     if changes != "none":
         seen: set[str] = set()
@@ -132,10 +146,31 @@ def validate_row(dataset: Dataset, request: Request, row: dict[str, str]) -> lis
                     errors.append("invalid_reduce_category_or_flexibility")
                 else:
                     new_amount = decimal(parts[2])
-                    if new_amount is None or new_amount < 0 or new_amount > event.amount:
+                    event_date = event.settlement_date or event.event_date
+                    original_amount = (
+                        convert_to_home(
+                            dataset,
+                            event.amount,
+                            event.currency,
+                            profile.home_currency,
+                            event_date,
+                        )
+                        if event_date and event.amount is not None
+                        else None
+                    )
+                    if new_amount is None or original_amount is None or new_amount < 0 or new_amount >= original_amount:
                         errors.append("invalid_reduce_amount")
+                    else:
+                        change_map[event_id] = new_amount
             else:
                 errors.append("invalid_spending_change_action")
+            if parts[0] == "stop" and event_id not in change_map:
+                change_map[event_id] = None
+
+    if method != "not_recommended" and plan and not errors:
+        safety = FinancialForecaster(dataset, profile, request).simulate(plan, change_map)
+        if not safety.safe:
+            errors.append("payment_plan_fails_90_day_safety_check")
     return errors
 
 

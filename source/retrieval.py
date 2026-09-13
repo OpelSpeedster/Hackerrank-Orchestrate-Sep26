@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import math
 import re
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Any, Iterable
 
 try:
     import numpy as np  # type: ignore
@@ -33,13 +34,14 @@ class EvidenceDocument:
 
 
 class EvidenceIndex:
-    """Metadata-filtered FAISS index with a dependency-free lexical fallback."""
+    """Metadata-filtered FAISS index with Modal and lexical fallbacks."""
 
     def __init__(self, dataset: Dataset, dimensions: int = 256):
         self.dimensions = dimensions
         self.documents: list[EvidenceDocument] = []
         self._index = None
         self._vectors = None
+        self.remote_embeddings = False
         self._build_documents(dataset)
         self._build_index()
 
@@ -98,14 +100,40 @@ class EvidenceIndex:
             vector /= norm
         return vector
 
+    def _set_vectors(self, vectors: Any) -> bool:
+        if np is None:
+            return False
+        values = np.asarray(vectors, dtype="float32")
+        if values.ndim != 2 or len(values) != len(self.documents) or values.shape[1] == 0:
+            return False
+        norms = np.linalg.norm(values, axis=1, keepdims=True)
+        values = values / np.maximum(norms, 1e-12)
+        self.dimensions = int(values.shape[1])
+        self._vectors = values
+        self._index = None
+        if faiss is not None:
+            self._index = faiss.IndexFlatIP(self.dimensions)
+            self._index.add(values)
+        return True
+
     def _build_index(self) -> None:
         if not self.documents or np is None:
             return
-        vectors = np.vstack([self._vector(document.text) for document in self.documents])
-        self._vectors = vectors
-        if faiss is not None:
-            self._index = faiss.IndexFlatIP(self.dimensions)
-            self._index.add(vectors)
+        self._set_vectors(np.vstack([self._vector(document.text) for document in self.documents]))
+
+    async def build_remote_embeddings(self, embedder: Any, batch_size: int = 128) -> bool:
+        """Replace hash vectors with Modal embeddings when explicitly configured."""
+        if not getattr(embedder, "enabled", False) or not self.documents:
+            return False
+        vectors: list[list[float]] = []
+        for start in range(0, len(self.documents), batch_size):
+            batch = [document.text for document in self.documents[start : start + batch_size]]
+            result = await embedder.embed(batch)
+            if not result or len(result) != len(batch):
+                return False
+            vectors.extend(result)
+        self.remote_embeddings = self._set_vectors(vectors)
+        return self.remote_embeddings
 
     @staticmethod
     def _lexical_score(query: str, text: str) -> float:
@@ -115,33 +143,17 @@ class EvidenceIndex:
             return 0.0
         return len(query_tokens & text_tokens) / math.sqrt(len(query_tokens) * max(1, len(text_tokens)))
 
-    def search(
-        self,
-        query: str,
-        user_id: str,
-        request_id: str = "",
-        event_ids: Iterable[str] = (),
-        limit: int = 8,
-    ) -> list[dict]:
+    def _eligible(self, user_id: str, request_id: str, event_ids: Iterable[str]) -> list[int]:
         allowed_events = set(event_ids)
-        eligible = [
+        return [
             index
             for index, document in enumerate(self.documents)
             if document.user_id == user_id
             and (not request_id or not document.request_id or document.request_id == request_id)
             and (not allowed_events or not document.event_id or document.event_id in allowed_events)
         ]
-        if not eligible:
-            return []
 
-        scores: list[tuple[float, int]] = []
-        query_vector = self._vector(query)
-        if self._index is not None and query_vector is not None:
-            distances, indices = self._index.search(query_vector.reshape(1, -1), len(self.documents))
-            score_by_index = {int(index): float(score) for score, index in zip(distances[0], indices[0])}
-            scores = [(score_by_index.get(index, 0.0), index) for index in eligible]
-        else:
-            scores = [(self._lexical_score(query, self.documents[index].text), index) for index in eligible]
+    def _format_results(self, scores: list[tuple[float, int]], limit: int) -> list[dict]:
         scores.sort(key=lambda item: (-item[0], self.documents[item[1]].record_id))
         return [
             {
@@ -157,3 +169,57 @@ class EvidenceIndex:
             for score, index in scores[:limit]
             if score > 0
         ]
+
+    def _search_vector(self, vector: Any, eligible: list[int], limit: int) -> list[dict]:
+        if self._index is not None:
+            distances, indices = self._index.search(vector.reshape(1, -1), len(self.documents))
+            score_by_index = {int(index): float(score) for score, index in zip(distances[0], indices[0])}
+            return self._format_results(
+                [(score_by_index.get(index, 0.0), index) for index in eligible], limit
+            )
+        if self._vectors is not None and np is not None:
+            scores = self._vectors[eligible] @ vector
+            return self._format_results(
+                [(float(score), index) for score, index in zip(scores, eligible)], limit
+            )
+        return []
+
+    def search(
+        self,
+        query: str,
+        user_id: str,
+        request_id: str = "",
+        event_ids: Iterable[str] = (),
+        limit: int = 8,
+    ) -> list[dict]:
+        eligible = self._eligible(user_id, request_id, event_ids)
+        if not eligible:
+            return []
+        query_vector = self._vector(query) if not self.remote_embeddings else None
+        if query_vector is not None:
+            return self._search_vector(query_vector, eligible, limit)
+        return self._format_results(
+            [(self._lexical_score(query, self.documents[index].text), index) for index in eligible],
+            limit,
+        )
+
+    async def search_async(
+        self,
+        query: str,
+        user_id: str,
+        request_id: str = "",
+        event_ids: Iterable[str] = (),
+        limit: int = 8,
+        embedder: Any = None,
+    ) -> list[dict]:
+        eligible = self._eligible(user_id, request_id, event_ids)
+        if not eligible:
+            return []
+        if self.remote_embeddings and getattr(embedder, "enabled", False):
+            response = await embedder.embed([query])
+            if response and len(response) == 1 and np is not None:
+                vector = np.asarray(response[0], dtype="float32")
+                norm = float(np.linalg.norm(vector))
+                if vector.ndim == 1 and len(vector) == self.dimensions and norm:
+                    return self._search_vector(vector / norm, eligible, limit)
+        return self.search(query, user_id, request_id, event_ids, limit)

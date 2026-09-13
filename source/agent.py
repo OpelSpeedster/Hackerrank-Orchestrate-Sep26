@@ -36,28 +36,48 @@ def _load_environment(root: Path) -> None:
 async def run_pipeline(root: Path, output_path: Path, disable_models: bool = False) -> int:
     ingested = load_all(root / "dataset")
     dataset = ingested.dataset
+    orchestrator_provider = os.getenv("ORCHESTRATOR_PROVIDER", "groq").lower()
+    provider_names = ["Groq"]
+    if orchestrator_provider not in {"groq", ""}:
+        provider_names.append(orchestrator_provider.title())
+    if os.getenv("MODAL_ENDPOINT", "").strip():
+        provider_names.append("Modal")
     metrics = PipelineMetrics(
         extraction_model=os.getenv("EXTRACTION_MODEL", "qwen/qwen3.8-27b"),
         guard_model=os.getenv(
-            "REASONING_MODEL", "meta-llama/llama-prompt-guard-2-86m"
+            "ORCHESTRATOR_MODEL",
+            os.getenv("REASONING_MODEL", "openai/gpt-oss-120b"),
         ),
+        modal_model=os.getenv("EMBEDDING_MODEL", ""),
+        provider=" + ".join(provider_names),
     )
     models_enabled = not disable_models and os.getenv("GROQ_ENABLE_AGENT", "1").lower() not in {
         "0", "false", "no"
     }
     gateway = GroqGateway(metrics, enabled_override=models_enabled)
-    modal = ModalClient(float(os.getenv("MODAL_TIMEOUT_SECONDS", "30")))
+    modal = ModalClient(
+        float(os.getenv("MODAL_TIMEOUT_SECONDS", "30")),
+        metrics,
+        enabled_override=not disable_models,
+    )
     index = EvidenceIndex(dataset)
+    if os.getenv("EMBEDDING_PROVIDER", "local").lower() == "modal" and modal.enabled:
+        remote_index = await index.build_remote_embeddings(modal)
+        print("Modal FAISS embeddings enabled." if remote_index else "Modal embeddings unavailable; using local FAISS fallback.")
     tools = FinancialTools(root / "dataset", dataset, index, gateway, modal)
     router = ElasticRouter(tools, metrics)
 
-    if gateway.enabled:
+    if gateway.extraction_enabled:
+        print(f"Groq extraction enabled: Qwen={gateway.extraction_model}")
+    else:
+        print("Groq extraction unavailable; using document fallbacks.")
+    if gateway.orchestrator_enabled:
         print(
-            f"Groq agent enabled: Qwen={gateway.extraction_model}, "
-            f"Meta={gateway.guard_model}"
+            f"Orchestrator enabled: provider={gateway.orchestrator_provider}, "
+            f"model={gateway.orchestrator_model}"
         )
     else:
-        print("Groq agent unavailable; using deterministic tools and fallbacks.")
+        print("Orchestrator unavailable; using deterministic routing and fallbacks.")
     if modal.enabled:
         print("Modal document/embedding adapter enabled.")
     else:

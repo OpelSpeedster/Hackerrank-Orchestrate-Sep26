@@ -115,6 +115,24 @@ For every row in `dataset/requests.csv`, produce one row in `output.csv` with:
 5. Verify deterministically — bounds, plan feasibility, schedule match, flexible-only spending changes — before writing `output.csv`.
 6. Score yourself on the solved samples, then run the full dataset.
 
+For this repository, the README-aligned evaluation commands are:
+
+```bash
+# Score the 25 solved examples in sample_requests.csv with the orchestrator
+python3 benchmarks/run_sample_orchestrator.py
+
+# Optional deterministic comparison with all model/provider calls disabled
+python3 benchmarks/run_sample_orchestrator.py --no-models
+
+# Generate predictions for all requests.csv rows
+python3 code/main.py
+
+# Validate the generated output.csv against the project contract
+python3 code/evaluation/main.py
+```
+
+The sample benchmark uses the completed fields in `dataset/sample_requests.csv` as labels. The full `dataset/requests.csv` set has no participant-visible labels, so its benchmark can verify row coverage, schema, bounds, payment-plan validity, spending-change validity, and other safety constraints, but cannot claim hidden-label accuracy.
+
 You may use any language or runtime. Python, JavaScript, and TypeScript are all reasonable choices.
 
 ---

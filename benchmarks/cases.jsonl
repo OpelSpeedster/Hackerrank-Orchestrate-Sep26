@@ -1,0 +1,12 @@
+{"case_id":"missing_image_evidence_001","request_id":"request_26","focus":"missing or image-linked financial evidence"}
+{"case_id":"installment_plan_001","request_id":"request_33","focus":"supplied installment options"}
+{"case_id":"foreign_currency_001","request_id":"request_48","focus":"dated exchange-rate normalization"}
+{"case_id":"pending_debit_001","request_id":"request_55","focus":"pending debit reservation"}
+{"case_id":"future_income_001","request_id":"request_64","focus":"confirmed future income"}
+{"case_id":"flexible_spending_001","request_id":"request_73","focus":"permitted flexible spending changes"}
+{"case_id":"partial_payment_001","request_id":"request_78","focus":"partial payment deadline"}
+{"case_id":"recurring_expense_001","request_id":"request_84","focus":"recurring expense forecast"}
+{"case_id":"message_context_001","request_id":"request_101","focus":"request-linked messages"}
+{"case_id":"minimum_balance_001","request_id":"request_105","focus":"minimum balance safety"}
+{"case_id":"payment_options_001","request_id":"request_113","focus":"payment option ranking"}
+{"case_id":"conservative_fallback_001","request_id":"request_140","focus":"contract-valid fallback"}
